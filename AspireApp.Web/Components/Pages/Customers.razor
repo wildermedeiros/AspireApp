@@ -1,0 +1,79 @@
+﻿@page "/customers"
+@rendermode InteractiveServer
+@attribute [StreamRendering(true)]
+@inject WeatherApiClient WeatherApi
+
+
+<PageTitle>Customers</PageTitle>
+
+<h1>Customers</h1>
+
+<button class="btn btn-primary">Add Customer</button>
+
+<p></p>
+
+<div class="input-group mb-3">
+    <input type="text" @bind="TermoPesquisa" @onkeyup="HandleKeyDown" class="form-control" placeholder="Customer's username">
+    <button class="btn btn-outline-primary" @onclick="RealizarPesquisa">Search</button>
+</div>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Manage</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td width="20%" class="text-center">
+                        <div class="d-flex justify-content-center gap-3">
+                            <button class="btn btn-primary btn-sm" type="button"> <i class="oi oi-pencil"></i> Edit</button>
+                            <button class="btn btn-danger btn-sm" type="button"> <i class="oi oi-trash"></i>  Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private string? TermoPesquisa = string.Empty;
+    private List<string>? resultadosPesquisa;
+    private WeatherForecast[]? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await WeatherApi.GetWeatherAsync();
+    }
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter" || e.Key == "Enter")
+        {
+            // Chama a função que você deseja executar quando o Enter é pressionado
+            RealizarPesquisa();
+        }
+    }
+
+    private void RealizarPesquisa()
+    {
+        // Simulação de resultados de pesquisa
+        resultadosPesquisa = new List<string> {
+            $"Resultado 1 para '{TermoPesquisa}'",
+            $"Resultado 2 para '{TermoPesquisa}'",
+            // Adicione lógica para buscar os resultados reais baseado em TermoPesquisa
+        };
+    }
+}
+
