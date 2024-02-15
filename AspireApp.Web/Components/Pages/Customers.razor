@@ -2,19 +2,19 @@
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
 @inject WeatherApiClient WeatherApi
-
+@inject NavigationManager NavigationManager
 
 <PageTitle>Customers</PageTitle>
 
 <h1>Customers</h1>
 
-<button class="btn btn-primary">Add Customer</button>
+<button class="btn btn-primary" @onclick="GoToAddCustomerPage" > <i class="oi oi-plus"></i> Add Customer</button>
 
 <p></p>
 
 <div class="input-group mb-3">
     <input type="text" @bind="TermoPesquisa" @onkeyup="HandleKeyDown" class="form-control" placeholder="Customer's username">
-    <button class="btn btn-outline-primary" @onclick="RealizarPesquisa">Search</button>
+    <button class="btn btn-outline-primary" @onclick="RealizarPesquisa"> <i class="oi oi-magnifying-glass"></i> Search</button>
 </div>
 
 @if (forecasts == null)
@@ -74,6 +74,11 @@ else
             $"Resultado 2 para '{TermoPesquisa}'",
             // Adicione lógica para buscar os resultados reais baseado em TermoPesquisa
         };
+    }
+
+    private void GoToAddCustomerPage()
+    {
+        NavigationManager.NavigateTo("/addcustomer");
     }
 }
 

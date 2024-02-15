@@ -1,0 +1,26 @@
+﻿@page "/addcustomer"
+@using AspireApp.Web.Model
+
+<PageTitle>Add Customer</PageTitle>
+
+<p></p>
+
+<h1>Add Customer</h1>
+
+<EditForm Model=@customer>
+    <div class="mb-3">
+        <label for="input-name" class="form-label">Name</label>
+        <InputText type="text" class="form-control" id="input-name" @bind-Value=customer!.Name></InputText>
+    </div>
+    <div class="mb-3">
+        <label for="input-email" class="form-label">Email</label>
+        <InputText type="email" class="form-control" id="input-email" @bind-Value=customer!.Email></InputText>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    <DataAnnotationsValidator />
+</EditForm>
+   
+@code {
+    private Customer? customer = new();
+
+}

@@ -599,11 +599,13 @@
 }
 
 .oi-list-rich:before {
-    content: '\e087'
+    content: '\e087';
+    margin-right: 10px;
 }
 
 .oi-list:before {
-    content: '\e088'
+    content: '\e088';
+    margin-right: 10px;
 }
 
 .oi-location:before {
