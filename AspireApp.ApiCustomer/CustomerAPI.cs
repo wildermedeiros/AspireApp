@@ -35,7 +35,6 @@ public static class CustomerAPI
             var affected = await db.Customer
                 .Where(model => model.Id == id)
                 .ExecuteUpdateAsync(setters => setters
-                    .SetProperty(m => m.Id, customer.Id)
                     .SetProperty(m => m.Name, customer.Name)
                     .SetProperty(m => m.LastName, customer.LastName)
                     .SetProperty(m => m.Email, customer.Email)
@@ -54,7 +53,7 @@ public static class CustomerAPI
         {
             db.Customer.Add(customer);
             await db.SaveChangesAsync();
-            return TypedResults.Created($"/api/Customer/{customer.Id}",customer);
+            return TypedResults.Created($"/api/Customer/{customer.Id}", customer);
         })
         .WithName("CreateCustomer")
         .WithOpenApi();

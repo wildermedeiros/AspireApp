@@ -1,7 +1,8 @@
 ﻿@page "/customers"
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
-@inject WeatherApiClient WeatherApi
+@using AspireApp.Web.Services
+@inject WeatherService WeatherApi
 @inject NavigationManager NavigationManager
 
 <PageTitle>Customers</PageTitle>

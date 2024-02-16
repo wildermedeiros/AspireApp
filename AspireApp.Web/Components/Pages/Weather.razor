@@ -1,8 +1,8 @@
 ﻿@page "/weather"
+@using AspireApp.Web.Services
 @attribute [StreamRendering(true)]
 @attribute [OutputCache(Duration = 5)]
-
-@inject WeatherApiClient WeatherApi
+@inject WeatherService WeatherApi
 
 <PageTitle>Weather</PageTitle>
 

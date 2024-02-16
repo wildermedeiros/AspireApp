@@ -1,17 +1,15 @@
-using AspireApp.Web;
 using AspireApp.Web.Components;
+using AspireApp.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add service defaults & Aspire components.
 builder.AddServiceDefaults();
 //builder.AddRedisOutputCache("cache");
 
-// Add services to the container.
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
-builder.Services.AddHttpClient<WeatherApiClient>(client=> client.BaseAddress = new("http://apiservice"));
+builder.Services.AddHttpClient<WeatherService>(client=> client.BaseAddress = new("http://api-service"));
+builder.Services.AddHttpClient<CustomerService>(client => client.BaseAddress = new("http://api-customer"));
 
 var app = builder.Build();
 
@@ -24,10 +22,11 @@ app.UseStaticFiles();
 
 app.UseAntiforgery();
 
+app.UseHttpsRedirection();
+
 //app.UseOutputCache();
 
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
     
 app.MapDefaultEndpoints();
 

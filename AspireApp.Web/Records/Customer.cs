@@ -1,6 +1,6 @@
-﻿namespace AspireApp.Web.Model
+﻿namespace AspireApp.Web.Records
 {
-    public class Customer
+    public record Customer
     {
         public int Id { get; set; }
         public string? Name { get; set; }

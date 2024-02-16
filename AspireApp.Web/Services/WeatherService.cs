@@ -1,6 +1,6 @@
-namespace AspireApp.Web;
+namespace AspireApp.Web.Services;
 
-public class WeatherApiClient(HttpClient httpClient)
+public class WeatherService(HttpClient httpClient)
 {
     public async Task<WeatherForecast[]> GetWeatherAsync()
     {
