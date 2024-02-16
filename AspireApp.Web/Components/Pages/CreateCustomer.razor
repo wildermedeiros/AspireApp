@@ -1,0 +1,54 @@
+﻿@page "/create/customer"
+@using AspireApp.Web.Records
+
+<PageTitle>Create Customer</PageTitle>
+
+<p></p>
+
+<h1>Create Customer</h1>
+
+<EditForm Model=@customer>
+
+    <div class="mb-3">
+        <label for="input-name" class="form-label">Name</label>
+        <InputText type="text" class="form-control" id="input-name" @bind-Value=customer!.Name></InputText>
+    </div>
+
+    <div class="mb-3">
+        <label for="input-lastname" class="form-label">Last name</label>
+        <InputText type="text" class="form-control" id="input-lastname" @bind-Value=customer.LastName></InputText>
+    </div>
+
+    <div class="mb-3">
+        <label for="input-email" class="form-label">Email</label>
+        <InputText type="email" class="form-control" id="input-email" @bind-Value=customer.Email></InputText>
+    </div>
+
+    <div class="mb-3">
+        <label for="input-phone" class="form-label">Phone number</label>
+        <InputText type="tel" class="form-control" id="input-phone" @bind-Value=customer.PhoneNumber></InputText>
+    </div>
+
+    <div class="mb-3">
+        <label for="input-dob" class="form-label">Date of birth</label>
+        <InputDate class="form-control" id="input-dob" @bind-Value=customer.DateOfBirth></InputDate>
+    </div>
+
+    <div class="mb-3">
+        <label for="input-balance" class="form-label"> Balance </label>
+        <InputNumber class="form-control" id="input-balance" @bind-Value=customer.Balance></InputNumber>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+
+    <DataAnnotationsValidator />
+
+</EditForm>
+   
+@code {
+    [SupplyParameterFromForm]
+    public Customer? customer { get; set; }
+
+    protected override void OnInitialized() => customer ??= new();
+
+}
