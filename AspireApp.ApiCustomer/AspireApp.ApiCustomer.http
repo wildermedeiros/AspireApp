@@ -1,0 +1,6 @@
+@AspireApp.ApiCustomer_HostAddress = http://localhost:5189
+
+GET {{AspireApp.ApiCustomer_HostAddress}}/api/customer
+Accept: application/json
+
+###

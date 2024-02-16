@@ -8,4 +8,7 @@ builder.AddProject<Projects.AspireApp_Web>("webfrontend")
     .WithReference(apiservice);
     //.WithReference(cache)
 
+builder.AddProject<Projects.AspireApp_ApiCustomer>("aspireapp.apicustomer");
+    //.WithReference(cache)
+
 builder.Build().Run();
