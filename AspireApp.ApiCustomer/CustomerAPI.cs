@@ -53,7 +53,8 @@ public static class CustomerAPI
         {
             db.Customer.Add(customer);
             await db.SaveChangesAsync();
-            return TypedResults.Created($"/api/Customer/{customer.Id}", customer);
+            return TypedResults.Created($"/api/Customer/{customer.Id}", customer.Id);
+            
         })
         .WithName("CreateCustomer")
         .WithOpenApi();

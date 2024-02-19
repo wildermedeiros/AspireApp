@@ -1,5 +1,8 @@
 ﻿@page "/create/customer"
 @using AspireApp.Web.Records
+@using AspireApp.Web.Services
+@inject CustomerService customerService
+@inject NavigationManager navigationManager
 
 <PageTitle>Create Customer</PageTitle>
 
@@ -10,59 +13,67 @@
 <div class="justify-content-start">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-6">
-            <EditForm Model=@customer>
+            <EditForm Model=@customer OnValidSubmit="Create" FormName="CreateCostumer">
+                <DataAnnotationsValidator />
 
                 <div class="mb-3">
                     <label for="input-name" class="form-label">Name</label>
                     <InputText type="text" class="form-control" id="input-name" @bind-Value=customer!.Name></InputText>
+                    <ValidationMessage For=@(() => customer.Name) />
+
                 </div>
 
                 <div class="mb-3">
                     <label for="input-lastname" class="form-label">Last name</label>
-                    <InputText type="text" class="form-control" id="input-lastname" @bind-Value=customer.LastName></InputText>
+                    <InputText type="text" class="form-control" id="input-lastname" @bind-Value=customer.LastName DisplayName="Last name"></InputText>
+                    <ValidationMessage For=@(() => customer.LastName) />
                 </div>
 
                 <div class="mb-3">
                     <label for="input-email" class="form-label">Email</label>
                     <InputText type="email" class="form-control" id="input-email" @bind-Value=customer.Email></InputText>
+                    <ValidationMessage For=@(() => customer.Email) />
                 </div>
 
                 <div class="mb-3">
                     <label for="input-phone" class="form-label">Phone number</label>
-                    <InputText type="tel" class="form-control" id="input-phone" @bind-Value=customer.PhoneNumber></InputText>
+                    <InputText type="tel" class="form-control" id="input-phone" @bind-Value=customer.PhoneNumber DisplayName="Phone number"></InputText>
+                    <ValidationMessage For=@(() => customer.PhoneNumber) />
                 </div>
 
                 <div class="mb-3">
                     <label for="input-dob" class="form-label">Date of birth</label>
-                    <InputDate class="form-control" id="input-dob" @bind-Value=customer.DateOfBirth></InputDate>
+                    <InputDate class="form-control" id="input-dob" @bind-Value=customer.DateOfBirth DisplayName="Date of birth"></InputDate>
+                    <ValidationMessage For=@(() => customer.DateOfBirth) />
                 </div>
 
                 <div class="mb-3">
                     <label for="input-adress" class="form-label">Adress</label>
-                    <InputText type="text" class="form-control" id="input-adress" @bind-Value=customer.Adress></InputText>
+                    <InputText type="text" class="form-control" id="input-adress" @bind-Value=customer.Adress ></InputText>
+                    <ValidationMessage For=@(() => customer.Adress) />
                 </div>
 
                 <div class="mb-3">
                     <label for="input-cliente-since" class="form-label">Client since of</label>
-                    <InputDate class="form-control" id="input-cliente-since" @bind-Value=customer.ClientSince></InputDate>
+                    <InputDate class="form-control" id="input-cliente-since" @bind-Value=customer.ClientSince DisplayName="Client since of"></InputDate>
+                    <ValidationMessage For=@(() => customer.ClientSince) />
                 </div>
 
                 <div class="mb-3">
                     <label for="input-balance" class="form-label"> Balance </label>
                     <InputNumber class="form-control" id="input-balance" @bind-Value=customer.Balance></InputNumber>
+                    <ValidationMessage For=@(() => customer.Balance) />
                 </div>
 
                 <button type="submit" class="btn btn-primary">Create</button>
-
-                <DataAnnotationsValidator />
 
             </EditForm>
         </div>
             
         <div class="col-sm-0 col-md-0 col-lg-6">
-
         </div>
     </div>
+    <br />
 </div>
    
 @code {
@@ -71,4 +82,12 @@
 
     protected override void OnInitialized() => customer ??= new();
 
+    private async Task Create()
+    {
+        var newCustomerId = await customerService.CreateCustomer(customer!);
+
+        navigationManager.NavigateTo($"/customers/{newCustomerId}");
+
+        
+    }
 }
