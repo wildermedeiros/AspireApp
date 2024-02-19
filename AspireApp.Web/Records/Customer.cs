@@ -15,7 +15,7 @@ namespace AspireApp.Web.Records
         public DateOnly DateOfBirth { get; set; } = DateOnly.FromDateTime(DateTime.Now);
         [Required]
         public string? Adress { get; set; }
-        public DateOnly ClientSince { get; set; }
+        public DateOnly ClientSince { get; set; } = DateOnly.FromDateTime(DateTime.Now);
         [Required]
         public float Balance { get; set; }
     }
